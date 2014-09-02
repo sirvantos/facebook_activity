@@ -1,0 +1,9 @@
+<%=render 'share/facebook/loggin'%>
+<h1>Log in using any of the following services:</h1>
+<div class="row">
+  <div class="col-md-8">
+    <%= link_to '/auth/facebook' do%>
+        <%= image_tag("facebook/login-button.png", :alt => "Facebook login") %>
+    <%end%>
+  </div>
+</div>

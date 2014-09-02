@@ -1,0 +1,21 @@
+<%=render 'share/facebook/init'%>
+<script type="text/javascript">
+   $(function() {
+        $('a.facebook-login').click(function(e) {
+            e.preventDefault();
+
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    $('#connect').html('Connected! Hitting OmniAuth callback (GET /auth/facebook/callback)...');
+
+                    // since we have cookies enabled, this request will allow omniauth to parse
+                    // out the auth code from the signed request in the fbsr_XXX cookie
+                    $.getJSON('/auth/facebook/callback', function(json) {
+                        $('#connect').html('Connected! Callback complete.');
+                        $('#results').html(JSON.stringify(json));
+                    });
+                }
+            }, { scope: 'email,read_stream', state: 'abc123' });
+        });
+    });
+</script>

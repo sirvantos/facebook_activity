@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag "application", media: "all",
+                          "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
+</head>
+<body id="body">
+<%= render 'layouts/header' %>
+<section id="spinner" class="spinner-2">
+  <div class="spinner"></div>
+</section>
+<div id="page-body" class="container">
+  <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+  <% end %>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8"><%= yield %></div>
+    <div class="col-md-2"></div>
+  </div>
+  <%= render 'layouts/footer' %>
+  <% if Rails.env.development? %>
+      <%= debug(request.request_method()) %>
+      <%= debug(request.server_software()) %>
+      <%= debug(request.uuid()) %>
+      <%= debug(params) %>
+  <% end  %>
+</div>
+</body>
+</html>
