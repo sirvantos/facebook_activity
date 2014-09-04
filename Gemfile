@@ -36,6 +36,9 @@ gem 'jbuilder', '~> 1.2'
 # oauth authentication
 gem 'omniauth-facebook'
 
+# facebookj api
+gem "koala", "~> 1.10.0rc"
+
 # heroku deployer
 gem 'heroku_san'
 
