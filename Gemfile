@@ -39,6 +39,12 @@ gem 'omniauth-facebook'
 # facebookj api
 gem "koala", "~> 1.10.0rc"
 
+#js useful utils (gmaps4rails used it)
+gem 'underscore-rails'
+
+# gmaps
+gem 'gmaps4rails'
+
 # heroku deployer
 gem 'heroku_san'
 

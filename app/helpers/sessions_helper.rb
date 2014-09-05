@@ -12,6 +12,7 @@ module SessionsHelper
     self.current_user = nil
   end
 
+  # current user
   def current_user=(user)
     @current_user = user
   end
@@ -23,6 +24,16 @@ module SessionsHelper
   def current_user
     remember_token = User.digest(cookies[:remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
+  end
+
+
+  #auth token
+  def auth_token=(auth_token)
+    @auth_token = auth_token
+  end
+
+  def auth_token(provider)
+    @auth_token ||= get_auth_token(provider)
   end
 
   def signed_in?
@@ -70,4 +81,20 @@ module SessionsHelper
 
     session[:back_url] = @back_url
   end
+
+  private
+    def get_auth_token provider
+      auth_token = nil
+      if signed_in? && current_user.not_expired_token?(provider) then
+        session_key = 'auth_pool_' + provider + '_auth_token'
+        if session.has_key?(session_key) then
+          auth_token = session[session_key]
+        else
+          auth_token = current_user.authorizations.find_by_provider(provider).auth_token
+          session[session_key] = auth_token
+        end
+      end
+
+      auth_token
+    end
 end

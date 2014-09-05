@@ -4,18 +4,14 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    auth = Authorization.find_by_provider_and_uid(auth_hash['provider'], auth_hash['uid'])
-
-    unless auth then
-      auth = Authorization.find_or_create auth_hash, current_user
-    end
+    auth = Authorization.find_or_create auth_hash, current_user
 
     unless signed_in? then
       sign_in auth.user
     end
 
     flash[:success] = "Welcome " + auth.user.name + " to the facebook activity"
-    redirect_to root_url
+    redirect_to back_url
   end
 
   def failure
