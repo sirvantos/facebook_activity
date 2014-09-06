@@ -37,7 +37,6 @@ class @MarkerManager
         @showMarkers()
         buildOptions.onBuilt(@map) if buildOptions.onBuilt
     else
-      @clearMarkers()
       @showMarkers()
 
   clearMarkers: ->
@@ -53,6 +52,8 @@ class @MarkerManager
 
   showMarkers: ->
     if(@markers.length)
+      @clearMarkers()
+
       @innerMarkers = @handler.addMarkers(@markers)
       @handler.bounds.extendWith(@innerMarkers)
       @handler.fitMapToBounds()
