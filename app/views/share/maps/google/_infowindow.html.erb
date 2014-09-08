@@ -1,0 +1,16 @@
+<%
+    if info_window[:image].nil?
+        info_window[:image] = {href: 'no_image.png', alt: 'Place logo'}
+    end
+%>
+<div class="info-window">
+    <h3 class="title"><%=info_window[:title]%></h3>
+    <div class="content" >
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6"><%=image_tag info_window[:image][:href], alt: info_window[:image][:alt]%></div>
+            <div class="col-md-6"><%=info_window[:description]%></div>
+          </div>
+      </div>
+    </div>
+</div>

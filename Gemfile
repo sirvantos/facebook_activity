@@ -39,8 +39,12 @@ gem 'omniauth-facebook'
 # facebookj api
 gem "koala", "~> 1.10.0rc"
 
-# heroku deployer
-gem 'heroku_san'
+#js useful utils (gmaps4rails used it)
+gem 'underscore-rails'
+
+# gmaps
+gem 'gmaps4rails'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -54,6 +58,8 @@ group :development do
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.5.3'
   #datapopulation
+  # heroku deployer
+  gem 'heroku_san'
 end
 
 group :test do
@@ -66,6 +72,10 @@ group :test do
   gem 'nokogiri', '~> 1.3'
   gem 'rack_session_access'
   #datapopulation
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 # Use ActiveModel has_secure_password
