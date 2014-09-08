@@ -79,6 +79,6 @@ FacebookActivity::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Add facebook access config
-  ENV['FACEBOOK_APP_ID'] = '1673354446223612';
+  ENV['FACEBOOK_APP_ID'] = '1671805939711796';
   ENV['FACEBOOK_SECRET'] = '8f855aef079a9f65c709a3005cd7f65c';
 end
