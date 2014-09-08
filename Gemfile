@@ -45,8 +45,6 @@ gem 'underscore-rails'
 # gmaps
 gem 'gmaps4rails'
 
-# heroku deployer
-gem 'heroku_san'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -60,6 +58,8 @@ group :development do
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.5.3'
   #datapopulation
+  # heroku deployer
+  gem 'heroku_san'
 end
 
 group :test do
@@ -72,6 +72,10 @@ group :test do
   gem 'nokogiri', '~> 1.3'
   gem 'rack_session_access'
   #datapopulation
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 # Use ActiveModel has_secure_password
