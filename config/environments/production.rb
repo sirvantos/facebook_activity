@@ -80,5 +80,5 @@ FacebookActivity::Application.configure do
 
   # Add facebook access config
   ENV['FACEBOOK_APP_ID'] = '1673354446223612';
-  ENV['FACEBOOK_SECRET'] = 'ed27923e45cdd25c718a1e713070de36';
+  ENV['FACEBOOK_SECRET'] = '8f855aef079a9f65c709a3005cd7f65c';
 end
