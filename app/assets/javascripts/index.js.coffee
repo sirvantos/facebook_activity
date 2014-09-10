@@ -57,7 +57,7 @@ class @MarkerManager
       @innerMarkers = @handler.addMarkers(@markers)
       @handler.bounds.extendWith(@innerMarkers)
       @handler.fitMapToBounds()
-      @map.centerOn([@markers[0].lat, @markers[0].lng])
+      #@map.centerOn([@markers[0].lat, @markers[0].lng])
 
 @autolocationUpdate= (markers)->
   mm = new MarkerManager('basic_map', markers);
