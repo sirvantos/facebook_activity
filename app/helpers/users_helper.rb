@@ -7,17 +7,17 @@ module UsersHelper
       if(last_locations.size) then
         place = last_locations[0]['place']
 
-        if(!skip_same_location || !is_same_location?(place))
+        if(!place.blank? && (!skip_same_location || !is_same_location?(place)))
           current_user.update_attributes(lat: place['location']['latitude'].to_f, lon: place['location']['longitude'].to_f)
           @location_hash = handle_user_location(place) + handle_nearby_location
         end
       end
     end
 
-     respond_to do |format|
-       format.html # index.html.erb
-       format.json { render json: @location_hash}
-     end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @location_hash}
+    end
   end
 
   private
@@ -47,10 +47,7 @@ module UsersHelper
   def handle_nearby_location
     places = get_nearby_places
 
-    render text: places.inspect
     location_hash = Gmaps4rails.build_markers(places) do |one_place, marker|
-      next if is_same_location? one_place
-
       data_source = {
           title: one_place['name'].to_s,
           description: get_user_place_description(nil, one_place)
@@ -81,7 +78,10 @@ module UsersHelper
   def get_nearby_places
     return {} if current_user.lat.nil? || current_user.lon.nil?
 
-    graph.search('', type: 'place', center: current_user.lat.to_s + ',' + current_user.lon.to_s, distance: 1000, limit: 50)
+    places = graph.search('', type: 'place', center: current_user.lat.to_s + ',' + current_user.lon.to_s, distance: 1000, limit: 50)
+    places.find_all do |place|
+      !is_same_location? place
+    end
   end
 
   def is_same_location?(place)
