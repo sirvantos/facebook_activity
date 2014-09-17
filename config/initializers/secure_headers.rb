@@ -4,13 +4,13 @@
   config.x_content_type_options = "nosniff"
   config.x_xss_protection = {:value => 1, :mode => 'block'}
   config.csp = {
-      default_src: "self 'unsafe-inline' 'unsafe-eval' https://* http://*.googleapis.com http://*.facebook.com http://*.google.com http://*.googlecode.com http://*.gstatic.com",
+      default_src: "self https://* http://*.googleapis.com http://*.facebook.com http://*.facebook.net http://*.google.com http://*.googlecode.com http://*.gstatic.com",
       style_src: "self 'unsafe-inline' https://* http://*.googleapis.com http://*.facebook.com http://*.google.com http://*.googlecode.com http://*.gstatic.com",
-      script_src: "self 'unsafe-eval' https://* http://*.googleapis.com http://*.facebook.com http://*.google.com http://*.googlecode.com http://*.gstatic.com",
-      # object_src: "self"
-      # connect_src: "https://* self http://*.googleapis.com http://*.facebook.com/* http://*.google.com/*",
-      frame_src: "self",
-      # img_src: "https://* self http://*.googleapis.com http://*.facebook.com/* http://*.google.com/*"
-      # report_uri: '//example.com/uri-directive'
+      script_src: "self 'unsafe-inline' 'unsafe-eval' https://*  http://static.ak.facebook.com http://*.googleapis.com http://*.facebook.com http://*.facebook.net http://*.google.com http://*.googlecode.com http://*.gstatic.com",
+      # # object_src: "self"
+      # # connect_src: "https://* self http://*.googleapis.com http://*.facebook.com/* http://*.google.com/*",
+      # frame_src: "self",
+      # # img_src: "https://* self http://*.googleapis.com http://*.facebook.com/* http://*.google.com/*"
+      # # report_uri: '//example.com/uri-directive'
   }
 end

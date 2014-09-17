@@ -36,15 +36,18 @@ class @MarkerManager
 
       @innerMarkers = @handler.addMarkers(@markers)
       @handler.bounds.extendWith(@innerMarkers)
-      @handler.fitMapToBounds()
-      #@map.centerOn([@markers[0].lat, @markers[0].lng])
+      @handler.getMap().setZoom(18)
+      @handler.getMap().setCenter({lat: @markers[0].lat, lng: @markers[0].lng})
+
+intervalLocationUpdate = null
+markerManager = null
 
 @autolocationUpdate= (markers)->
-  mm = new MarkerManager('basic_map', markers);
-  mm.buildMap onBuilt: (map)=>
+  markerManager = new MarkerManager('basic_map', markers);
+  markerManager.buildMap onBuilt: (map)=>
     setTimeout ()->
-      setInterval ->
-        locationUpdate mm
+      intervalLocationUpdate = setInterval ->
+        locationUpdate markerManager
         , 10000
       ,10000
 
@@ -60,6 +63,14 @@ locationUpdate=(markerManager)->
 
   req.fail (jqXHR, textStatus, errorThrown) -> console.log(textStatus)
 
-$ ->
-  console.log $('#location-hash').data('hash')
+readFunc = ->
+  console.log(markerManager)
+  markerManager = null
+  if(intervalLocationUpdate)
+    clearInterval(intervalLocationUpdate)
+
+loadFunc = ->
   autolocationUpdate($('#location-hash').data('hash'))
+
+
+onPageReady loadFunc, readFunc, false
