@@ -206,6 +206,7 @@ aside {
 //spinner
 
 section#spinner {
+  z-index: 99999;
   position: fixed;
   left: 50%;
   top: 50%;
