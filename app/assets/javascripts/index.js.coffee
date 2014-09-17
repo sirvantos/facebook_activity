@@ -35,9 +35,19 @@ class @MarkerManager
       @clearMarkers()
 
       @innerMarkers = @handler.addMarkers(@markers)
+      marker = @innerMarkers[0]
+
       @handler.bounds.extendWith(@innerMarkers)
       @handler.getMap().setZoom(18)
-      @handler.getMap().setCenter({lat: @markers[0].lat, lng: @markers[0].lng})
+      @handler.getMap().setCenter(marker.getServiceObject().getPosition())
+
+  openFirstInfoWindow: ->
+    if(!@markers.length)
+      return;
+
+    marker = @innerMarkers[0]
+    google.maps.event.trigger(marker.getServiceObject(), 'click')
+
 
 intervalLocationUpdate = null
 markerManager = null
@@ -45,6 +55,7 @@ markerManager = null
 @autolocationUpdate= (markers)->
   markerManager = new MarkerManager('basic_map', markers);
   markerManager.buildMap onBuilt: (map)=>
+    markerManager.openFirstInfoWindow()
     setTimeout ()->
       intervalLocationUpdate = setInterval ->
         locationUpdate markerManager
@@ -64,8 +75,6 @@ locationUpdate=(markerManager)->
   req.fail (jqXHR, textStatus, errorThrown) -> console.log(textStatus)
 
 readFunc = ->
-  console.log(markerManager)
-  markerManager = null
   if(intervalLocationUpdate)
     clearInterval(intervalLocationUpdate)
 
