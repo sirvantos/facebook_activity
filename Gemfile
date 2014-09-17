@@ -45,6 +45,8 @@ gem 'underscore-rails'
 # gmaps
 gem 'gmaps4rails'
 
+# secure headers tags
+gem 'secure_headers'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

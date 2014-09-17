@@ -4,26 +4,6 @@
 namespace = (name) ->
   window[name] = window[name] or {}
 
-page_ready = ->
-  $('#spinner').show()
-  $('body').css({opacity: 0.5})
-
-page_load = ->
-  $('#body [title]').filter(':not([data-toggle="popover"])').tooltip({});
-  $('#body [data-toggle="popover"]').popover()
-  $('#spinner').hide()
-  $('body').css({opacity: 1})
-
-#handle ajax calls
-$(document).ajaxStart(page_load);
-$(document).ajaxStop(page_load);
-
-#handle turbolinks call
-$(document).ready(page_load);
-$(document).on('page:load', page_load);
-$(document).on('page:restore', page_load);
-$(document).on('page:fetch', page_ready);
-
 class @MarkerManager
   constructor: (@mapId, @markers) ->
     @innerMarkers = []
@@ -78,4 +58,8 @@ locationUpdate=(markerManager)->
 
   req.done (data, textStatus, jqXHR) -> markerManager.setMarkers(data).updateMap()
 
-  req.fail (jqXHR, textStatus, errorThrown) -> console.log('22222')
+  req.fail (jqXHR, textStatus, errorThrown) -> console.log(textStatus)
+
+$ ->
+  console.log $('#location-hash').data('hash')
+  autolocationUpdate($('#location-hash').data('hash'))

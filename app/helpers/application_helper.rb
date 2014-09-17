@@ -15,6 +15,10 @@ module ApplicationHelper
                      :locals => { info_window: data_source_2_info_window(data_object)})
   end
 
+  def javascript(*files)
+    content_for(:script) { javascript_include_tag(*files.uniq) }
+  end
+
   private
 
   def data_source_2_info_window data_object
