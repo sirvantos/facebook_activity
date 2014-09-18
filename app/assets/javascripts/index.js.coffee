@@ -15,9 +15,11 @@ class @MarkerManager
     if !@map
       @map = @handler.buildMap {provider: {}, internal: {id: @mapId}}, =>
         @showMarkers()
+        markerManager.openFirstInfoWindow()
         buildOptions.onBuilt(@map) if buildOptions.onBuilt
     else
       @showMarkers()
+      markerManager.openFirstInfoWindow()
 
   clearMarkers: ->
     @handler.removeMarkers(@innerMarkers)
@@ -55,7 +57,6 @@ markerManager = null
 @autolocationUpdate= (markers)->
   markerManager = new MarkerManager('basic_map', markers);
   markerManager.buildMap onBuilt: (map)=>
-    markerManager.openFirstInfoWindow()
     setTimeout ()->
       intervalLocationUpdate = setInterval ->
         locationUpdate markerManager
